@@ -1,0 +1,83 @@
+doctype html 5
+html
+    head
+        title=pageTitle+title
+        meta(charset="utf-8")
+        meta(name="applicable-device", content="pc,mobile")
+        meta(name="MobileOptimized", content="width")
+        meta(name="HandheldFriendly", content="true")
+        link(rel="stylesheet", type="text/css", href="/css/style.css")
+    body
+        .header !{headerHtml}
+        .menu-child
+            each item in meituMenus
+                a(href="#{host+'/meitu/'+item.type}/", title="#{item.name}", class="#{item.type == type? 'active' : ''}") #{item.name}
+        .detail-title
+            h1.lf #{pageTitle}
+            div.rf
+                span 当前位置：
+                a(href="#{host}/") 首页&nbsp;&gt;&nbsp;&nbsp;
+                a(href="#{host+'/meitu/'+position.type}/") #{position.name}
+        //- .detail-jianjie !{listData.jianjie}
+        .share
+            .bdsharebuttonbox
+                a.bds_more(href='#', data-cmd='more')       
+                a.bds_qzone(href='#', data-cmd='qzone', title='分享到QQ空间')
+                a.bds_tsina(href='#', data-cmd='tsina', title='分享到新浪微博')
+                a.bds_tqq(href='#', data-cmd='tqq', title='分享到腾讯微博')
+                a.bds_renren(href='#', data-cmd='renren', title='分享到人人网')
+                a.bds_weixin(href='#', data-cmd='weixin', title='分享到微信')
+                a.bds_sqq(href='#', data-cmd='sqq', title='分享到QQ好友')
+                a.bds_tieba(href='#', data-cmd='tieba', title='分享到百度贴吧')
+        .imgs-list
+            -if(imgs.length)
+                div#imgs-list
+                    each item in imgs
+                        img(src="#{host+item.replace('https://mtl.ttsqgs.com','/meitustatic')}", alt="#{pageTitle}")
+            -else
+                span.no-data 没有找到图片，请重新选择！
+            input(id="img-str", type="hidden", value="#{listData.imgs || ''}")
+        #detail-page.detail-page
+        .footer
+            span © 2011-2018 Umeng.com.All Rights Reserved
+        script.
+            var imgs = document.getElementById('img-str').value;
+            var pageEv = document.getElementById('detail-page');
+            var imgsList = document.getElementById('imgs-list');
+            var pages = '<span data="prev">上一页</span>';
+            var currentPage = 1;
+            if (imgs) {
+                var imgSpl = imgs.split(',');
+                var lens = imgSpl.length / 5;
+                if(lens < 1) lens = 1;
+                for(var i = 0; i < lens; i++) {
+                    pages += '<span data="'+ (i+1) +'">'+ (i+1) +'</span>';
+                }
+                pages += '<span data="next">下一页</span>';
+                pageEv.innerHTML = pages;
+                // 点击事件
+                var childs = pageEv.children;
+                childs[currentPage].className = 'active';
+                for(var j = 0; j < childs.length; j++) {
+                    childs[j].onclick = function () {
+                        childs[currentPage].className = '';
+                        var evData = this.getAttribute('data');
+                        if (evData === 'prev') {
+                            if (currentPage > 1) currentPage--
+                        } else if (evData === 'next') {
+                            if (currentPage < lens) currentPage++
+                        } else {
+                            currentPage = Number(evData);
+                        }
+                        childs[currentPage].className = 'active';
+                        var currentImg = imgSpl.slice(currentPage*5-5, currentPage*5);
+                        var tagetImg = '';
+                        for(var k = 0; k < currentImg.length; k++) {
+                            tagetImg += '<img src="'+ currentImg[k].replace("https://mtl.ttsqgs.com","/meitustatic") +'" alt="情趣综合平台")>';
+                        }
+                        imgsList.innerHTML = tagetImg;
+                    }
+                }
+            }
+            window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":["mshare","qzone","tsina","tieba","sqq","weixin","bdysc","renren","tqq","bdxc","kaixin001","tqf","douban","tsohu","bdhome","thx","ibaidu","meilishuo","mogujie","diandian","huaban","duitang","hx","fx","youdao","sdo","qingbiji","people","xinhua","mail","isohu","yaolan","wealink","ty","iguba","fbook","twi","linkedin","copy","print"],"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin","sqq","tieba"],"viewText":"分享到：","viewSize":"24"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin","sqq","tieba"]}};
+            with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];

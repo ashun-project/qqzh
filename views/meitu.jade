@@ -1,0 +1,56 @@
+doctype html 5
+html
+    head
+        title=pageTitle
+        meta(charset="utf-8")
+        meta(name="keywords", content=pageKeyword)
+        meta(name="description", content='#{pageDescrition}')
+        meta(name="applicable-device", content="pc,mobile")
+        meta(name="MobileOptimized", content="width")
+        meta(name="HandheldFriendly", content="true")
+        link(rel="stylesheet", type="text/css", href="/css/style.css")
+    body
+        .header !{headerHtml}
+        .menu-child
+            each item in meituMenus
+                a(href="#{host+'/meitu/'+item.type}/", title="#{item.name}", class="#{item.type == type? 'active' : ''}") #{item.name}
+        .banner
+            img(src="#{host}/img/bn.jpg", alt="妹子-banner")
+        .lsit-items
+            each item in listData
+                h2 #{item.name}
+                    a(href="#{host+ '/meitu/' +item.type}/", title="#{item.name}") 更多
+                .data-list
+                    each vv in item.list
+                        a(href="#{host+'/meitu/'+ vv.type +'/'+vv.id}", title="#{vv.title}", target="_blank")
+                            .list-img
+                                img(src="#{host+vv.img.replace('https://mtl.ttsqgs.com','/meitustatic')}", alt="#{vv.title}")
+                            .list-profile
+                                p #{vv.imglen}
+                                p #{vv.jigou}
+                                p #{vv.mutie}
+                            .list-title
+                                strong #{vv.title}
+        .friendly
+            h3 友情链接
+            span 美女图片                   
+            span 爆乳美女
+            span 极品美女
+            span 韩国风俗娘
+            span 性感少妇
+            span 性感尤物
+            span 街拍美女
+            span 甜美女生
+            span 清新美女
+            span 户外美女
+            span 长腿美女
+            span 性感嫩模
+            span 性感女神
+            span 性感美女
+            span 美胸美女
+            span 内衣美女
+            span 短发美女
+            span 比基尼美女
+            span 韩国美女
+            span 超高清美女图片
+            span 阿顺美图
