@@ -7,27 +7,27 @@ var dtNum = 0;
 var arr = [];
 var resour = 'https://www.meitulu.com';
 var items = [
-    // {url: '/t/nvshen/', type: 'nvshen', num: 35},//35
-    // {url: '/t/jipin/', type: 'jipin', num: 30},//30
-    // {url: '/t/nenmo/', type: 'nenmo', num: 60},//60
-    // {url: '/t/wangluohongren/', type: 'wangluohongren', num: 10},//10
-    // {url: '/t/fengsuniang/', type: 'fengsuniang', num: 1},
-    // {url: '/t/qizhi/', type: 'qizhi', num: 21},//21
-    // {url: '/t/youwu/', type: 'youwu', num: 34},//34
-    // {url: '/t/baoru/', type: 'baoru', num: 20},//20
-    // {url: '/t/xinggan/', type: 'xinggan', num: 67},//67
-    // {url: '/t/youhuo/', type: 'youhuo', num: 48},//48
-    // {url: '/t/meixiong/', type: 'meixiong', num: 35},//35
-    // {url: '/t/shaofu/', type: 'shaofu', num: 20},//32
-    // {url: '/t/changtui/', type: 'changtui', num: 32},//32
-    // {url: '/t/mengmeizi/', type: 'mengmeizi', num: 28},//28
-    {url: '/t/loli/', type: 'loli', num: 11},//11
-    {url: '/t/keai/', type: 'keai', num: 21},//21
-    {url: '/t/huwai/', type: 'huwai', num: 22},//22
-    {url: '/t/bijini/', type: 'bijini', num: 9},//9
-    {url: '/t/qingchun/', type: 'qingchun', num: 23},//23
-    {url: '/t/weimei/', type: 'weimei', num: 11},//11
-    {url: '/t/qingxin/', type: 'qingxin', num: 24}//24
+    {url: '/t/nvshen/', type: 'nvshen', num: 1},//35
+    {url: '/t/jipin/', type: 'jipin', num: 1},//30
+    {url: '/t/nenmo/', type: 'nenmo', num: 1},//60
+    {url: '/t/wangluohongren/', type: 'wangluohongren', num: 1},//10
+    {url: '/t/fengsuniang/', type: 'fengsuniang', num: 1},
+    {url: '/t/qizhi/', type: 'qizhi', num: 1},//21
+    {url: '/t/youwu/', type: 'youwu', num: 1},//34
+    {url: '/t/baoru/', type: 'baoru', num: 1},//20
+    {url: '/t/xinggan/', type: 'xinggan', num: 1},//67
+    {url: '/t/youhuo/', type: 'youhuo', num: 1},//48
+    {url: '/t/meixiong/', type: 'meixiong', num: 1},//35
+    {url: '/t/shaofu/', type: 'shaofu', num: 1},//20
+    {url: '/t/changtui/', type: 'changtui', num: 1},//32
+    {url: '/t/mengmeizi/', type: 'mengmeizi', num: 1},//28
+    {url: '/t/loli/', type: 'loli', num: 1},//11
+    {url: '/t/keai/', type: 'keai', num: 1},//21
+    {url: '/t/huwai/', type: 'huwai', num: 1},//22
+    {url: '/t/bijini/', type: 'bijini', num: 1},//9
+    {url: '/t/qingchun/', type: 'qingchun', num: 1},//23
+    {url: '/t/weimei/', type: 'weimei', num: 1},//11
+    {url: '/t/qingxin/', type: 'qingxin', num: 1}//24
 ]
 var ip = [
     '14.192.76.22',
