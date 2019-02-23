@@ -38,7 +38,10 @@ var meituMenus = [
     {url: '/t/weimei/', type: 'weimei', name: '唯美', title: '唯美美女_清纯唯美美女图片_超高清唯美美女写真', keyword: '唯美美女图片,天然唯美,乡村唯美,清纯唯美美女,唯美美女写真', desc: '阿顺美图整理的唯美美女图片,天然唯美,乡村唯美,清纯唯美美女,唯美美女写真'},
     {url: '/t/qingxin/', type: 'qingxin', name: '清新', title: '清新美女_唯美清新美女图_超高清清新小美女图片', keyword: '清新美女,清新小美女图,清新美女图片', desc: '阿顺美图整理的清新美女图片都是超高清的套图，唯美贴近自然的清新小美女'}
 ];
-
+// var zixun = [{type: 'zixun', name: 'zixun', title: '清萌妹子写真套图', keyword: '萌妹子,天', desc: '阿顺美图整理'}];
+var childMenus = {
+    meitu: meituMenus
+}
 function getHeaderMenu(type, host) {
     var headerMenu = [{name: '首页', url: host+'/', type: 'shouye'}, {name: '精品美图', url: host+'/meitu/nvshen/', type: 'meitu'}];
     var headerhtml = '<div class="logo lf"><h6><a href="'+host+'/">情趣综合平台</a></h6></div><div class="search rf"><input id="search-value" onkeyup="getKeyup()" type="text"><button onclick="goSearch()">搜索</button></div><div class="menu rf">';
@@ -46,12 +49,22 @@ function getHeaderMenu(type, host) {
     var scriptStr = '<script>function goSearch(){var searchValue = document.getElementById("search-value").value;if(searchValue){window.location.href="/meitu/search/"+searchValue.replace(/_/g,"&&")+"/";};};function getKeyup(e){var event=e||window.event;if(event.keyCode=="13"){goSearch();}}</script>';
     for(var a = 0; a < headerMenu.length; a++) {
         if (type === headerMenu[a].type) {
-            headerStr += '<li class="active"><a href="'+ headerMenu[a].url +'" title="'+ headerMenu[a].name +'">'+ headerMenu[a].name +'</span><i></i></li>';
+            headerStr += '<li class="active"><a href="'+ headerMenu[a].url +'" title="'+ headerMenu[a].name +'">'+ headerMenu[a].name +'</a><i></i></li>';
         } else {
             headerStr += '<li><a href="'+ headerMenu[a].url +'" title="'+ headerMenu[a].name +'">'+ headerMenu[a].name +'</a></li>';
         }
     }
     return headerhtml + headerStr+ '</ul></div>' + scriptStr;
+}
+function filterTitle(items) {
+    var substr = '';
+    for (var i = 0; i < items.length; i++) {
+        substr = items[i].title.match(/\[(\S*)\]/);
+        if (substr && substr[0]) {
+            items[i].title = items[i].title.replace(substr[0], '');
+        }
+    }
+    return items;
 }
 
 // 首页
@@ -65,7 +78,8 @@ router.get('/', function (req, res) {
     //select t1.* from meitu_list t1 inner join meitu_list_rela t2 on t1.id = t2.list_id where t2.type = 'youwu';
     pool.getConnection(function (err, conn) {
         if (err) console.log("POOL /==> " + err);
-        conn.query(sql, function (err, result) {
+        conn.query(sql, function (err, resultList) {
+            var result = filterTitle(resultList||[]);
             for(var i = 0; i < result.length; i++) {
                 items[result[i].type].list.push(result[i]);
             }
@@ -75,10 +89,10 @@ router.get('/', function (req, res) {
                 pageTitle: '情趣综合平台',
                 pageKeyword: '美女图片,美女写真,妹子,美女,mm,美女,qqzhpt,qqzhpt.com',
                 pageDescrition: '情趣综合平台是一家专门收集整理全网超高清的美女写真网站,分享各类美女图片、丝袜美腿、性感MM、清纯妹子等极品美女写真;全部超高清无杂乱水印！',
-                headerHtml: getHeaderMenu('shouye', host),
+                // headerHtml: getHeaderMenu('shouye', host),
                 host: host,
-                meituMenus: meituMenus,
-                type: ''
+                childMenus: childMenus,
+                type: 'shouye'
             }
             res.render('meitu', listObj);
             pool.releaseConnection(conn);
@@ -115,14 +129,15 @@ function meituList(req, res, type, page){
         var count = 'SELECT COUNT(1) FROM meitu_list t1 inner join meitu_list_rela t2 on t1.id = t2.list_id where t2.type = "' + type +'"';
         pool.getConnection(function (err, conn) {
             if (err) console.log("POOL /==> " + err);
-            conn.query(sql, function (err, result) {
+            conn.query(sql, function (err, resultList) {
                 conn.query(count, function (errC, total) {
                     var host = 'http://'+req.headers['host'];
+                    var result = filterTitle(resultList||[]);
                     var listObj = {
-                        listData: result || [],
-                        headerHtml: getHeaderMenu('meitu', host),
-                        meituMenus: meituMenus,
-                        type: type,
+                        listData: result,
+                        // headerHtml: getHeaderMenu('meitu', host),
+                        childMenus: childMenus,
+                        type: 'meitu/'+type,
                         page: pageModule(Number(total[0]['COUNT(1)']) || 0, limit, host+'/meitu/'+type),
                         pageTitle: filter.title + '_情趣综合平台' + (limit>1? '_第'+ limit +'页' : ''),
                         pageKeyword: filter.keyword,
@@ -152,15 +167,16 @@ function getMeituSearch (req, res, searchCont, page) {
     var count = 'SELECT COUNT(1) FROM meitu_list where title like "' +'%'+ value +'%'+ '"';
     pool.getConnection(function (err, conn) {
         if (err) console.log("POOL /==> " + err);
-        conn.query(sql, function (err, result) {
+        conn.query(sql, function (err, resultList) {
             conn.query(count, function (errC, total) {
                 var resultTotal = Number(total[0]['COUNT(1)']) || 0;
                 var host = 'http://'+req.headers['host'];
+                var result = filterTitle(resultList||[]);
                 var listObj = {
-                    listData: result || [],
-                    headerHtml: getHeaderMenu('meitu', host),
-                    meituMenus: meituMenus,
-                    type: 'tag',
+                    listData: result,
+                    // headerHtml: getHeaderMenu('meitu', host),
+                    childMenus: childMenus,
+                    type: 'meitu/tag',
                     searchCont: value,
                     searchTotal: resultTotal,
                     page: resultTotal ? pageModule(resultTotal, limit, host+'/meitu/search/'+searchCont) : '',
@@ -197,7 +213,8 @@ function getMeituDetail(req, res, type, id, page){
     } else {
         pool.getConnection(function (err, conn) {
             if (err) console.log("POOL /==> " + err);
-            conn.query(sql, function (err, result) {
+            conn.query(sql, function (err, resultList) {
+                var result = filterTitle(resultList||[]);
                 var obj = result[0] || {};
                 var host = 'http://'+req.headers['host'];
                 var imgs = [];
@@ -214,12 +231,12 @@ function getMeituDetail(req, res, type, id, page){
                     }
                 }
                 var listObj = {
-                    headerHtml: getHeaderMenu('meitu', host),
-                    meituMenus: meituMenus,
+                    // headerHtml: getHeaderMenu('meitu', host),
+                    childMenus: childMenus,
                     pageTitle: obj.title || '数据丢失',
                     title: '_情趣综合平台',
                     position: filter,
-                    type: type,
+                    type: 'meitu/'+type,
                     page: pageCont,
                     imgs: imgs.slice(page*5-5, page*5),
                     totalImgs: imgs,

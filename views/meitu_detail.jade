@@ -7,11 +7,9 @@ html
         meta(name="MobileOptimized", content="width")
         meta(name="HandheldFriendly", content="true")
         link(rel="stylesheet", type="text/css", href="/css/style.css")
+        link(rel="shortcut icon", href="#{host}/img/favicon.ico", type="image/x-icon")
     body
-        .header !{headerHtml}
-        .menu-child
-            each item in meituMenus
-                a(href="#{host+'/meitu/'+item.type}/", title="#{item.name}", class="#{item.type == type? 'active' : ''}") #{item.name}
+        include ../include/header.jade
         .detail-title
             h1.lf #{pageTitle}
             div.rf
@@ -56,9 +54,11 @@ html
                             strong #{item.title}
                 -if(!recomond.length)
                     span.no-data 没有找到数据，请重新选择！
+        script
+            include ../include/header_menu.js
         .go-top#go-top(onclick="goTop()") &and;
         .footer
-            span © 2011-2018 Umeng.com.All Rights Reserved
+            span © 2019 情趣综合平台，致力打造用户喜爱
         script.
             function goTop() {
                 var scrollToptimer = '';

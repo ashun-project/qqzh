@@ -25,6 +25,8 @@ body{
     margin-top: 20px;
     text-align: center;
     border-top: 1px solid #eee;
+    font-size: 12px;
+    color: #666;
 }
 .header{
     background: #ff6800;
@@ -68,6 +70,10 @@ body{
     border-width:0 10px 10px;
     border-style:solid;
     border-color:transparent transparent #f6f8fa;/*透明 透明  灰*/
+    display: none;
+}
+.header .menu ul li.active i{
+    display: block;
 }
 .header .search {
     margin-top: 10px;
@@ -96,11 +102,24 @@ body{
     background: #f8ac79;
     color: #fff;
 }
-.menu-child{
+.menu-child > div{
+    /* display: none; */
     padding: 10px 0;
     border-bottom: 1px solid #eee;
     line-height: 25px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.10980392156862745);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+.menu-child div#show-menu{
+    position: fixed;
+    top: 50px;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    display: block;
+    background: #f6f8fa;
+}
+.menu-child > div.active{
+    display: block;
 }
 .menu-child a{
     color: #747273;

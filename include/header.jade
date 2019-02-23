@@ -1,0 +1,20 @@
+.header
+    div.logo.lf
+        h6
+            a(href="#{host}/") 情趣综合平台
+    div.search.rf
+        input(id="search-value", onkeyup="getKeyup()", type="text")
+        button(onclick="goSearch()") 搜索
+    div.menu.rf
+        ul
+            - var ary = [{name: '首页', url: '/', type: 'shouye'}, {name: '精品美图', url: '/meitu/nvshen/', type: 'meitu', child: true}];
+            each item in ary
+                li(class="#{(type.indexOf(item.type) > -1? 'active' : '')}")
+                    a(href="#{host+item.url}", title="#{item.name}", class="#{item.type}") #{item.name}
+                    -if (item.child)
+                        i
+.menu-child
+    each value, key in childMenus
+        div(class="#{key+'-child-menu' + (type.indexOf(key) > -1? ' active': '')}")
+            each item in value
+                a(href="#{host+'/'+ key +'/'+item.type}/", title="#{item.name}", class="#{(type.indexOf(item.type) > -1? 'active' : '')}") #{item.name}

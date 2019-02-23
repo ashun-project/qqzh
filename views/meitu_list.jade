@@ -9,11 +9,9 @@ html
         meta(name="MobileOptimized", content="width")
         meta(name="HandheldFriendly", content="true")
         link(rel="stylesheet", type="text/css", href="/css/style.css")
+        link(rel="shortcut icon", href="#{host}/img/favicon.ico", type="image/x-icon")
     body
-        .header !{headerHtml}
-        .menu-child
-            each item in meituMenus
-                a(href="#{host+'/meitu/'+item.type}/", title="#{item.name}", class="#{item.type == type? 'active' : ''}") #{item.name}
+        include ../include/header.jade
         .banner
             img(src="#{host}/img/bn.jpg", alt="妹子-banner")
         .lsit-items
@@ -31,5 +29,8 @@ html
                 -if(!listData.length)
                     span.no-data 没有找到数据，请重新选择！
         .meitu-page !{page} 
+        script
+            include ../include/header_menu.js
         .footer
-            span © 2011-2018 Umeng.com.All Rights Reserved
+            span © 2019 情趣综合平台，致力打造用户喜爱
+        
