@@ -246,7 +246,7 @@ function getMeituDetail(req, res, type, id, page){
                 var recommondSql = 'SELECT t1.*,t2.type FROM meitu_list t1 inner join meitu_list_rela t2 on t1.id = t2.list_id order by t1.id desc limit ' + (reNum + ',' + 8);
                 conn.query(recommondSql, function (err, recommondResult) {
                     console.log(reNum, '====', '记得改随机数')
-                    listObj.recomond = recommondResult;
+                    listObj.recomond = filterTitle(recommondResult||[]);
                     res.render('meitu_detail', listObj);
                     conn.release();
                 })
