@@ -1,13 +1,17 @@
 doctype html 5
 html
     head
+        meta(http-equiv="Content-Type", content="text/html; charset=UTF-8")
         title=pageTitle
-        meta(charset="utf-8")
         meta(name="keywords", content=pageKeyword)
         meta(name="description", content='#{pageDescrition}')
-        meta(name="applicable-device", content="pc,mobile")
-        meta(name="MobileOptimized", content="width")
-        meta(name="HandheldFriendly", content="true")
+        -if(terminal == 'pc')
+            meta(http-equiv="Cache-Control", content="no-transform")
+            meta(http-equiv="Cache-Control", content="no-siteapp")
+        -else
+            meta(name="viewport", content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no")
+            meta(name="format-detection", content="telephone=no")
+        meta(name="applicable-device", content="#{terminal}")
         link(rel="stylesheet", type="text/css", href="/css/style.css")
         link(rel="shortcut icon", href="#{host}/img/favicon.ico", type="image/x-icon")
     body
@@ -58,6 +62,8 @@ html
             span 韩国美女
             span 超高清美女图片
             span 阿顺美图
+            span 
+                a(href="http://www.ipo.hk/shangshi.html") 香港上市
         script
             include ../include/header_menu.js
         .footer

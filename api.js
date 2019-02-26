@@ -67,6 +67,19 @@ function filterTitle(items) {
     return items;
 }
 
+// 路由拦截
+router.all('*', function (req, res, next) {
+    var deviceAgent = req.headers["user-agent"].toLowerCase();
+    var agentID = deviceAgent.match(/(iphone|ipod|ipad|android)/);
+    var terminal = '';
+    if (agentID) {
+        terminal = "mobile";
+    } else {
+        terminal = "pc";
+    }
+    req.terminal = terminal;
+    next();
+})
 // 首页
 router.get('/', function (req, res) {
     var items = {
@@ -87,12 +100,13 @@ router.get('/', function (req, res) {
             var listObj = {
                 listData: items,
                 pageTitle: '情趣综合平台',
-                pageKeyword: '美女图片,美女写真,妹子,美女,mm,美女,qqzhpt,qqzhpt.com',
+                pageKeyword: '情趣综合平台,美女图片,美女写真,妹子,美女,mm,美女,qqzhpt,qqzhpt.com',
                 pageDescrition: '情趣综合平台是一家专门收集整理全网超高清的美女写真网站,分享各类美女图片、丝袜美腿、性感MM、清纯妹子等极品美女写真;全部超高清无杂乱水印！',
                 // headerHtml: getHeaderMenu('shouye', host),
                 host: host,
                 childMenus: childMenus,
-                type: 'shouye'
+                type: 'shouye',
+                terminal: req.terminal
             }
             res.render('meitu', listObj);
             pool.releaseConnection(conn);
@@ -142,7 +156,8 @@ function meituList(req, res, type, page){
                         pageTitle: filter.title + '_情趣综合平台' + (limit>1? '_第'+ limit +'页' : ''),
                         pageKeyword: filter.keyword,
                         pageDescrition: filter.desc,
-                        host: host
+                        host: host,
+                        terminal: req.terminal
                     }
                     res.render('meitu_list', listObj);
                     conn.release();
@@ -183,7 +198,8 @@ function getMeituSearch (req, res, searchCont, page) {
                     pageTitle: value+'_美图搜索_情趣综合平台'+(limit>1? '_第'+ limit +'页' : ''),
                     pageKeyword: '美图搜索,美女图片,美女写真,妹子,美女,mm,美女,qqzh8,qqzh8.com',
                     pageDescrition: '情趣综合平台美图搜索全网超高清的美女写真网站,分享各类美女图片、丝袜美腿、性感MM、清纯妹子等极品美女写真;全部超高清无杂乱水印！',
-                    host: host
+                    host: host,
+                    terminal: req.terminal
                 }
                 res.render('meitu_search', listObj);
                 conn.release();
@@ -240,7 +256,8 @@ function getMeituDetail(req, res, type, id, page){
                     page: pageCont,
                     imgs: imgs.slice(page*5-5, page*5),
                     totalImgs: imgs,
-                    host: host
+                    host: host,
+                    terminal: req.terminal
                 }
                 var reNum = Math.floor(Math.random()*(1 - 10000) + 10000);//10000
                 var recommondSql = 'SELECT t1.*,t2.type FROM meitu_list t1 inner join meitu_list_rela t2 on t1.id = t2.list_id order by t1.id desc limit ' + (reNum + ',' + 8);

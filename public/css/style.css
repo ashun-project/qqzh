@@ -35,6 +35,7 @@ body{
     color: #fff;
     padding: 0 10px;
     position: relative;
+    z-index: 6;
 }
 .header .logo h1{
     display: none;
@@ -75,6 +76,9 @@ body{
 .header .menu ul li.active i{
     display: block;
 }
+.header #mobile-menu{
+    display: none;
+}
 .header .search {
     margin-top: 10px;
 }
@@ -94,7 +98,7 @@ body{
     padding: 0 10px 0 25px;
     background-image: url('/img/sou.png');
     background-repeat: no-repeat;
-    background-size: 30%;
+    background-size: 18px;
     background-position: 4px 8px;
     cursor: pointer;
 }
@@ -130,12 +134,35 @@ body{
 .menu-child a.active, .menu-child a:hover{
     color: #ff6800;
 }
+.mask{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.26);
+    z-index: -1;
+    transition: all .6s;
+    opacity: 0;
+    visibility: hidden;
+}
+.mask#show-mask{
+    z-index: 1;
+    opacity: 1;
+    visibility: visible;
+}
 .banner{
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto;
     padding: 10px;
-    text-align: center;
+}
+.banner img{
+    width: 100%;
 }
 .lsit-items{
-    width: 1000px;
+    max-width: 1000px;
+    width: 100%;
     margin: 0 auto;
 }
 .lsit-items h2{
@@ -176,10 +203,16 @@ body{
     text-align: left;
 }
 .data-list .list-img{
-    height: 300px;
-    width: 220px;
+    /* max-height: 300px;
+    max-width: 220px; */
+    min-height: 300px;
+    height: auto;
+    width: 100%;
     margin: 0 auto;
     background: url('/img/grey.gif') no-repeat center;
+}
+.data-list .list-img img{
+    width: 100%;
 }
 .data-list .list-title{
     margin: 0 -10px;
@@ -198,6 +231,7 @@ body{
     max-width: 1200px;
     width: 100%;
     margin: 0 auto;
+    padding: 0 5px;
 }
 .imgs-list{
     max-width: 1200px;
@@ -296,7 +330,7 @@ h5.recommond-tuijian{
 .meitu-page span, .meitu-page a{
     display: inline-block;
     padding: 5px 15px;
-    margin: 0 2px;
+    margin: 2px;
     border: 1px solid #eee;
     background: #fff;
     box-shadow: 0 0 10px rgba(51, 51, 51, 0.09019);
@@ -325,11 +359,152 @@ h5.recommond-tuijian{
 .meitu-page a.active:hover{
     color: #fff;
 }
-.search-result h1{
+.search-result h2{
     max-width: 1000px;
     width: 100%;
     margin: 20px auto 0;
     height: 40px;
     line-height: 40px;
     font-size: 16px;
+}
+
+/* 移动端 */
+@media screen and (max-width: 1000px) {
+    .data-list{
+        margin: 0;
+    }
+    .data-list .list-img{
+        min-height: 160px;
+    }
+    .search-result h2{
+        padding: 0 5px;
+    }
+}
+@media screen and (max-width: 600px) {
+    .header{
+        margin-bottom: 60px;
+        padding: 0 5px;
+        height: 45px;
+        line-height: 45px;
+    }
+    .header .search.rf{
+        float: none;
+        position: absolute;
+        top: 58px;
+        left: 5px;
+        right: 5px;
+        line-height: 35px;
+        margin-top: 0;
+        box-shadow: 0 0 10px rgba(99, 94, 94, 0.28);
+    }
+    .header .search input{
+        width: 70%;
+        height: 35px;
+    }
+    .header .search button{
+        width: 30%;
+        height: 35px;
+        background-position-x: 30%;
+        background-size: 22px;
+    }
+    .header .menu{
+        margin-right: 0;
+    }
+    .header .menu #mobile-menu{
+        display: block;
+        width: 30px;
+        height: 30px;
+        background: url('/img/menu.png') no-repeat center;
+        background-size: 100%;
+        background-size: 100%;
+        margin-top: 8px;
+        margin-right: 0;
+    }
+    .header .menu #mobile-menu:active{
+        background: #d47c41;
+    }
+    .header .menu ul{
+        /* display: none; */
+        position: absolute;
+        top: 40px;
+        left: 0; 
+        right: 0;
+        line-height: 30px;
+        border-bottom: 1px solid #e2e2e2;
+        background: #f2f2f2;
+        padding: 5px 0;
+        z-index: 80;
+        opacity: 0;
+        transition: all .5s;
+        visibility: hidden;
+    }
+    .header .menu#show-ul ul{
+        display: block;
+        top: 45px;
+        opacity: 1;
+        visibility: visible;
+    }
+    .header .menu ul li a{
+        color: #333;
+    }
+    .header .menu ul li.active a, .header .menu ul li a:hover{
+        color: #d15b0c;
+        background: none;
+    }
+    .header .menu ul li.active i{
+        bottom: -6px;
+        border-width: 0 8px 8px;
+        border-color: transparent transparent #e2e2e2;
+    }
+    .menu-child{
+        position: absolute;
+        top: 81px;
+        width: 100%;
+        background: #f2f2f2;
+        z-index: 79;
+        opacity: 0;
+        transition: all .5s;
+        visibility: hidden;
+    }
+    .menu-child#show-menu-child{
+        opacity: 1;
+        visibility: visible;
+        top: 86px;
+    }
+    .menu-child div#show-menu{
+        display: none;
+    }
+    .banner{
+        padding: 0 5px;
+    }
+    .data-list a{
+        width: 49%;
+        margin-bottom: 5px;
+        padding: 5px 5px 0;
+    }
+    .data-list .list-title{
+        margin: 0 -5px;
+    }
+    .lsit-items h2 {
+        font-size: 14px;
+        margin-top: 10px;
+        padding: 0 5px;
+    }
+    .meitu-page{
+        padding: 5;
+    }
+    .meitu-page span, .meitu-page a{
+        padding: 2px 10px;
+        margin: 1px;
+    }
+    .footer{
+        margin-top: 10px;
+        line-height: 40px;
+    }
+    #go-top{
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        font-size: 14px;
+    }
 }

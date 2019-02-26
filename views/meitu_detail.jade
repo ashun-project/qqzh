@@ -1,11 +1,15 @@
 doctype html 5
 html
     head
+        meta(http-equiv="Content-Type", content="text/html; charset=UTF-8")
         title=pageTitle+title
-        meta(charset="utf-8")
-        meta(name="applicable-device", content="pc,mobile")
-        meta(name="MobileOptimized", content="width")
-        meta(name="HandheldFriendly", content="true")
+        -if(terminal == 'pc')
+            meta(http-equiv="Cache-Control", content="no-transform")
+            meta(http-equiv="Cache-Control", content="no-siteapp")
+        -else
+            meta(name="viewport", content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no")
+            meta(name="format-detection", content="telephone=no")
+        meta(name="applicable-device", content="#{terminal}")
         link(rel="stylesheet", type="text/css", href="/css/style.css")
         link(rel="shortcut icon", href="#{host}/img/favicon.ico", type="image/x-icon")
     body
@@ -14,10 +18,17 @@ html
             h1.lf #{pageTitle}
             div.rf
                 span 当前位置：
-                a(href="#{host}/") 首页&nbsp;&gt;&nbsp;&nbsp;
-                span 精品美图&nbsp;&gt;&nbsp;&nbsp;
+                a(href="#{host}/") 首页&nbsp;&gt;&nbsp;
+                span 精品美图&nbsp;&gt;
                 -if (position.type)
-                    a(href="#{host+'/meitu/'+position.type}/") #{position.name}
+                    a(href="#{host+'/meitu/'+position.type}/") &nbsp;#{position.name}
+        .imgs-list
+            -if(imgs.length)
+                div#imgs-list
+                    each item in imgs
+                        img(src="#{host+item.replace('https://mtl.ttsqgs.com','/meitustatic')}", alt="#{pageTitle}")
+            -else
+                span.no-data 没有找到图片，请重新选择！
         .share
             .bdsharebuttonbox
                 a.bds_more(href='#', data-cmd='more')       
@@ -28,13 +39,6 @@ html
                 a.bds_weixin(href='#', data-cmd='weixin', title='分享到微信')
                 a.bds_sqq(href='#', data-cmd='sqq', title='分享到QQ好友')
                 a.bds_tieba(href='#', data-cmd='tieba', title='分享到百度贴吧')
-        .imgs-list
-            -if(imgs.length)
-                div#imgs-list
-                    each item in imgs
-                        img(src="#{host+item.replace('https://mtl.ttsqgs.com','/meitustatic')}", alt="#{pageTitle}")
-            -else
-                span.no-data 没有找到图片，请重新选择！
         .detail-page.meitu-page
             -if(imgs.length)
                 span 共#{totalImgs.length}条
@@ -89,3 +93,8 @@ html
             }
             window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":["mshare","qzone","tsina","tieba","sqq","weixin","bdysc","renren","tqq","bdxc","kaixin001","tqf","douban","tsohu","bdhome","thx","ibaidu","meilishuo","mogujie","diandian","huaban","duitang","hx","fx","youdao","sdo","qingbiji","people","xinhua","mail","isohu","yaolan","wealink","ty","iguba","fbook","twi","linkedin","copy","print"],"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin","sqq","tieba"],"viewText":"分享到：","viewSize":"24"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin","sqq","tieba"]}};
             with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+            var bodyW = document.getElementsByTagName('body')[0].offsetWidth;
+            if (bodyW > 600) {
+                
+            }
+            

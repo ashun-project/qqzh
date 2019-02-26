@@ -1,5 +1,12 @@
 var menuLi = document.querySelectorAll('.menu ul li a');
-menuLiEvent();
+var bodyW = document.getElementsByTagName('body')[0].offsetWidth;
+var menu = document.querySelector('.header .menu');
+var mobileMenu = document.getElementById('mobile-menu');
+var mask = document.querySelector('.mask');
+var menuChild = document.querySelector('.menu-child');
+if (bodyW > 600) {
+    menuLiEvent();
+}
 function menuLiEvent() {
     for(var i = 0; i < menuLi.length; i++) {
         menuLi[i].onmouseover = function() {
@@ -18,6 +25,21 @@ function menuLiEvent() {
             }
         }
     }
+}
+mobileMenu.addEventListener('click', function(){
+    if (menu.getAttribute('id')) {
+        hideMenu('','','');
+    } else {
+        hideMenu('show-ul', 'show-mask', 'show-menu-child');
+    }
+});
+mask.addEventListener('click', function () {
+    hideMenu('','','');
+});
+function hideMenu(showUl, showMask, showMenuChild) {
+    menu.setAttribute('id', showUl);
+    mask.setAttribute('id', showMask);
+    menuChild.setAttribute('id', showMenuChild);
 }
 function goSearch () {
     var searchValue = document.getElementById("search-value").value;

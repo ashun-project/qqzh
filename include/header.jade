@@ -6,6 +6,7 @@
         input(id="search-value", onkeyup="getKeyup()", type="text")
         button(onclick="goSearch()") 搜索
     div.menu.rf
+        #mobile-menu
         ul
             - var ary = [{name: '首页', url: '/', type: 'shouye'}, {name: '精品美图', url: '/meitu/nvshen/', type: 'meitu', child: true}];
             each item in ary
@@ -18,3 +19,4 @@
         div(class="#{key+'-child-menu' + (type.indexOf(key) > -1? ' active': '')}")
             each item in value
                 a(href="#{host+'/'+ key +'/'+item.type}/", title="#{item.name}", class="#{(type.indexOf(item.type) > -1? 'active' : '')}") #{item.name}
+.mask
