@@ -5,7 +5,7 @@ var mobileMenu = document.getElementById('mobile-menu');
 var mask = document.querySelector('.mask');
 var menuChild = document.querySelector('.menu-child');
 if (bodyW > 600) {
-    menuLiEvent();
+    // menuLiEvent();
 }
 function menuLiEvent() {
     for(var i = 0; i < menuLi.length; i++) {

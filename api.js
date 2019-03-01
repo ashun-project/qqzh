@@ -16,6 +16,7 @@ function getMeituMenu() {
     return str + '</div>'
 }
 var meituMenus = [
+    {url: '/all', type: 'all', name: '全部分类', title: '精品美图_美图写真_阿顺美图', keyword: '美女图片,美女写真,妹子,美女,mm,阿顺美图', desc: '阿顺美图专门收集整理全网超高清的美女写真网站,分享各类美女图片、丝袜美腿、性感MM、清纯妹子等极品美女写真;全部超高清无杂乱水印！'},
     {url: '/t/nvshen/', type: 'nvshen', name: '女神', title: '女神_性感女神_宅男女神排行榜_超高清女神写真套图', keyword: '性感女神,宅男女神,女神图片,女神排行榜', desc: '阿顺美图整理的女神套图，都是宅男心目中的性感女神、所有图片都是超高清，并有排行榜单'},
     {url: '/t/jipin/', type: 'jipin', name: '极品', title: '极品美女图片_超高清极品美女写真套图', keyword: '极品美女,极品美女图,极品美女写真', desc: '阿顺美图整理的极品美女写真套图，全部超高清，有极品性感美女，极品清纯美女，极品诱惑美女，日本极品美女等'},
     {url: '/t/nenmo/', type: 'nenmo', name: '嫩模', title: '嫩模_嫩模图片_日本嫩模写真_超高清嫩模套图在线欣赏', keyword: '嫩模图片,嫩模写真,日本嫩模', desc: '在线欣赏阿顺美图整理的超高清嫩模写真套图;包括国产性感嫩模图片,日本嫩模写真套图,台湾美腿嫩模等'},
@@ -38,9 +39,21 @@ var meituMenus = [
     {url: '/t/weimei/', type: 'weimei', name: '唯美', title: '唯美美女_清纯唯美美女图片_超高清唯美美女写真', keyword: '唯美美女图片,天然唯美,乡村唯美,清纯唯美美女,唯美美女写真', desc: '阿顺美图整理的唯美美女图片,天然唯美,乡村唯美,清纯唯美美女,唯美美女写真'},
     {url: '/t/qingxin/', type: 'qingxin', name: '清新', title: '清新美女_唯美清新美女图_超高清清新小美女图片', keyword: '清新美女,清新小美女图,清新美女图片', desc: '阿顺美图整理的清新美女图片都是超高清的套图，唯美贴近自然的清新小美女'}
 ];
-// var zixun = [{type: 'zixun', name: 'zixun', title: '清萌妹子写真套图', keyword: '萌妹子,天', desc: '阿顺美图整理'}];
+var xingwenMenus = [
+    {url: '/all', type: 'all', name: '全部分类', title: '星闻_日韩星闻_港台星闻_内地星闻', keyword: '写真,最新新闻,娱乐资讯,明星资料,资料,个人资料,高清写真,生活照,剧照,主要作品,主演电影,主演电视', desc: '情趣综合平台为大家提供,明星娱乐八卦新闻,明星绯闻,影视资讯,音乐资讯,八卦爆料,娱乐视频等'},
+    {url: '/news/index?type=hdxz&p=', type: 'huodong', name: '活动', title: '活动现场', keyword: '最新新闻活动,娱乐资讯活动,生活照活动,剧照活动,主要作品活动,电影电视活动', desc: '情趣综合平台为大家提供,明星娱乐八卦活动,明星绯闻活动,影视资讯活动,音乐资讯活动,爆料、娱乐视频、等活动'},//35
+    {url: '/news/index?type=fwbg&p=', type: 'feiwen', name: '绯闻', title: '绯闻八卦', keyword: '最新绯闻八卦,娱乐资讯绯闻八卦,高清写真绯闻八卦,生活照、剧照绯闻八卦,电影、电视绯闻八卦', desc: '情趣综合平台为大家提供,明星娱乐绯闻八卦,影视、音乐绯闻八卦'},//30
+    {url: '/news/index?type=tupian&p=', type: 'tupian', name: '图片', title: '星图娱乐圈', keyword: '最新星图,星图资讯,星图资料,星图写真,生活星图', desc: '情趣综合平台为大家提供,港台星图,内地星图,其他星图解说'},//60
+    {url: '/news/index?type=baoliaotai&p=', type: 'baoliaotai', name: '爆料台', title: '爆料星闻台', keyword: '最新爆料,娱乐爆料,明星爆料,高清爆料写真,生活照、剧照爆料', desc: '情趣综合平台为大家提供,明星爆料,爆料明星绯闻,爆料影视资讯,音乐爆料资讯等'},//10
+    {url: '/news/index?type=zyxw&p=', type: 'zongyi', name: '综艺', title: '综艺星闻资源', keyword: '最新综艺,娱乐综艺,综艺高清写真,主演电影、主演电视综艺', desc: '情趣综合平台为大家提供,明星综艺新闻,影视、音乐,娱乐综艺信息'},
+    {url: '/news/index?type=dsxw&p=', type: 'dianshi', name: '电视', title: '电视星闻', keyword: '最新电视,高清星闻电视,主要作品、主演电视', desc: '情趣综合平台为大家提供,明星电视,明星绯闻电视,最新电视资讯'},//21
+    {url: '/news/index?type=dyxw&p=', type: 'dianying', name: '电影', title: '电影星闻', keyword: '最新电影咨询,明星电影资料,主要电影作品,电影主演,电影角色', desc: '情趣综合平台为大家提供,电影资讯信息,电影上映,电影演员,电影情况,线下电影星闻情况'},//34
+    {url: '/news/index?type=yyxw&p=', type: 'yinyue', name: '音乐', title: '音乐星闻', keyword: '最新明星音乐,娱乐音乐,高清音乐写真,生活音乐照,音乐主要作品', desc: '情趣综合平台为大家提供,音乐新闻,明星绯闻,2019音乐,音乐媒体相关等资讯'},//20
+    {url: '/news/index?type=mxdt&p=', type: 'dongtai', name: '动态', title: '星闻动态', keyword: '动态更新,娱乐动态,明星动态,高清写真动态,生活动态,主要作品动态、主演电影动态、主演电视动态', desc: '情趣综合平台为大家提供,明星娱乐八卦动态,绯闻动态,动态影视资讯,音乐动态资讯,八卦爆料、娱乐视频等动态更新情况'},//67
+];
 var childMenus = {
-    meitu: meituMenus
+    meitu: meituMenus,
+    xingwen: xingwenMenus
 }
 function getHeaderMenu(type, host) {
     var headerMenu = [{name: '首页', url: host+'/', type: 'shouye'}, {name: '精品美图', url: host+'/meitu/nvshen/', type: 'meitu'}];
@@ -66,10 +79,17 @@ function filterTitle(items) {
     }
     return items;
 }
+function getClientIP(req) {
+    return req.headers['x-forwarded-for'] || // 判断是否有反向代理 IP
+        req.connection.remoteAddress || // 判断 connection 的远程 IP
+        req.socket.remoteAddress || // 判断后端的 socket 的 IP
+        req.connection.socket.remoteAddress;
+};
 
 // 路由拦截
 router.all('*', function (req, res, next) {
-    var deviceAgent = req.headers["user-agent"].toLowerCase();
+    var userAgent = req.headers["user-agent"] || '';
+    var deviceAgent = userAgent.toLowerCase();
     var agentID = deviceAgent.match(/(iphone|ipod|ipad|android)/);
     var terminal = '';
     if (agentID) {
@@ -83,38 +103,43 @@ router.all('*', function (req, res, next) {
 // 首页
 router.get('/', function (req, res) {
     var items = {
-        youwu: {name: '尤物系列', type: 'youwu', list:[]},
-        jipin:{name: '极品系列', type: 'jipin', list:[]},
-        nenmo:{name: '嫩模系列', type: 'nenmo', list:[]}
+        meitu: {name: '美图系列', type: 'meitu', list:[]},
+        xingwen:{name: '星闻系列', type: 'xingwen', list:[]}
     };
-    var sql = 'select a.* from (select t1.*,t2.type from meitu_list t1 inner join meitu_list_rela t2 on t1.id = t2.list_id where t2.type = "youwu" order by t1.id desc limit 4) a union all select b.* from (select t1.*,t2.type from meitu_list t1 inner join meitu_list_rela t2 on t1.id = t2.list_id where t2.type = "jipin" order by t1.id desc limit 4) b union all select c.* from (select t1.*,t2.type from meitu_list t1 inner join meitu_list_rela t2 on t1.id = t2.list_id where t2.type = "nenmo" order by t1.id desc limit 4) c';
-    //select t1.* from meitu_list t1 inner join meitu_list_rela t2 on t1.id = t2.list_id where t2.type = 'youwu';
+    var meituSql = 'select * from meitu_list order by id desc limit 18';
+    var xingwenSql = 'select * from xingwen_list order by id desc limit 20';
     pool.getConnection(function (err, conn) {
         if (err) console.log("POOL /==> " + err);
-        conn.query(sql, function (err, resultList) {
-            var result = filterTitle(resultList||[]);
-            for(var i = 0; i < result.length; i++) {
-                items[result[i].type].list.push(result[i]);
-            }
-            var host = 'http://'+req.headers['host'];
-            var listObj = {
-                listData: items,
-                pageTitle: '情趣综合平台',
-                pageKeyword: '情趣综合平台,美女图片,美女写真,妹子,美女,mm,美女,qqzhpt,qqzhpt.com',
-                pageDescrition: '情趣综合平台是一家专门收集整理全网超高清的美女写真网站,分享各类美女图片、丝袜美腿、性感MM、清纯妹子等极品美女写真;全部超高清无杂乱水印！',
-                // headerHtml: getHeaderMenu('shouye', host),
-                host: host,
-                childMenus: childMenus,
-                type: 'shouye',
-                terminal: req.terminal
-            }
-            res.render('meitu', listObj);
-            pool.releaseConnection(conn);
+        conn.query(meituSql, function (err, meituResult) {
+            conn.query(xingwenSql, function (err, xingwenResult) {
+                var result = filterTitle(meituResult||[]);
+                var host = 'http://'+req.headers['host'];
+                items.meitu.list = result;
+                items.xingwen.list = xingwenResult || [];
+                var listObj = {
+                    listData: items,
+                    pageTitle: '情趣综合平台',
+                    pageKeyword: '情趣综合平台,美女图片,美女写真,妹子,美女,星闻,绯闻八卦,明星资料，明星活动,qqzhpt,qqzhpt.com',
+                    pageDescrition: '情趣综合平台是一家专门收集整理全网超高清的美女写真网站,分享各类美女图片、丝袜美腿、性感MM、清纯妹子等极品美女写真;全部超高清无杂乱水印！明星娱乐八卦新闻,明星绯闻,影视资讯,音乐资讯,八卦爆料,娱乐视频等',
+                    host: host,
+                    childMenus: childMenus,
+                    type: 'shouye',
+                    terminal: req.terminal
+                }
+                res.render('index', listObj);
+                pool.releaseConnection(conn);
+            });
         });
     });
 });
 
 // 列表页
+router.get('/meitu', function (req, res) {
+    meituList(req, res, 'all', 1);
+});
+router.get('/meitu/page/:page', function (req, res) {
+    meituList(req, res, 'all', req.params.page);
+});
 router.get('/meitu/:type', function (req, res) {
     meituList(req, res, req.params.type, 1);
 });
@@ -141,6 +166,10 @@ function meituList(req, res, type, page){
     } else {
         var sql = 'SELECT t1.*,t2.type FROM meitu_list t1 inner join meitu_list_rela t2 on t1.id = t2.list_id where t2.type = "' + type +'" order by t1.id desc limit ' + (limitBefore + ',' + 20);
         var count = 'SELECT COUNT(1) FROM meitu_list t1 inner join meitu_list_rela t2 on t1.id = t2.list_id where t2.type = "' + type +'"';
+        if(type == 'all') {
+            sql = 'SELECT * FROM meitu_list order by id desc limit ' + (limitBefore + ',' + 20);
+            count = 'SELECT COUNT(1) FROM meitu_list';
+        }
         pool.getConnection(function (err, conn) {
             if (err) console.log("POOL /==> " + err);
             conn.query(sql, function (err, resultList) {
@@ -152,7 +181,7 @@ function meituList(req, res, type, page){
                         // headerHtml: getHeaderMenu('meitu', host),
                         childMenus: childMenus,
                         type: 'meitu/'+type,
-                        page: pageModule(Number(total[0]['COUNT(1)']) || 0, limit, host+'/meitu/'+type),
+                        page: pageModule(Number(total[0]['COUNT(1)']) || 0, limit, host+'/meitu'+(type == 'all'? '' : '/'+type)),
                         pageTitle: filter.title + '_情趣综合平台' + (limit>1? '_第'+ limit +'页' : ''),
                         pageKeyword: filter.keyword,
                         pageDescrition: filter.desc,
@@ -209,15 +238,120 @@ function getMeituSearch (req, res, searchCont, page) {
 }
 
 // 详情页
-router.get('/meitu/:type/:id', function (req, res) {
-    getMeituDetail(req, res, req.params.type, req.params.id, 1);
+router.get('/meitu/detail/:id', function (req, res) {
+    getMeituDetail(req, res, req.params.id, 1);
 })
-router.get('/meitu/:type/:id/:page', function (req, res) {
-    getMeituDetail(req, res, req.params.type, req.params.id, Number(req.params.page));
+router.get('/meitu/detail/:id/:page', function (req, res) {
+    getMeituDetail(req, res, req.params.id, Number(req.params.page));
 })
-function getMeituDetail(req, res, type, id, page){
+function getMeituDetail(req, res, id, page){
     var sql = 'SELECT * FROM meitu_detail where id = "' + id +'"';
-    var filter = meituMenus.filter(function (item) {
+    pool.getConnection(function (err, conn) {
+        if (err) console.log("POOL /==> " + err);
+        conn.query(sql, function (err, resultList) {
+            var result = filterTitle(resultList||[]);
+            var obj = result[0] || {};
+            var host = 'http://'+req.headers['host'];
+            var imgs = [];
+            var lens = 0;
+            var pageCont = '';
+            var url = '';
+            if (obj.imgs) {
+                imgs = obj.imgs.split(',');
+                lens = Math.ceil(imgs.length / 5);
+                for(var i = 1; i <= lens; i++){
+                    url = host + '/meitu/detail/' + id + '/' + i;
+                    if (i === 1)  url = host + '/meitu/detail/' + id;
+                    pageCont += '<a class="'+ (i === page ? 'active' : '') +'" href="'+ url +'">'+ i +'</a>'
+                }
+            }
+            var listObj = {
+                // headerHtml: getHeaderMenu('meitu', host),
+                childMenus: childMenus,
+                pageTitle: obj.title || '数据丢失',
+                type: 'meitu/',
+                page: pageCont,
+                imgs: imgs.slice(page*5-5, page*5),
+                totalImgs: imgs,
+                host: host,
+                terminal: req.terminal
+            }
+            var reNum = Math.floor(Math.random()*(1 - 10000) + 10000);//10000
+            var recommondSql = 'SELECT t1.*,t2.type FROM meitu_list t1 inner join meitu_list_rela t2 on t1.id = t2.list_id order by t1.id desc limit ' + (reNum + ',' + 8);
+            conn.query(recommondSql, function (err, recommondResult) {
+                console.log(reNum, '====', '记得改随机数', getClientIP(req));
+                listObj.recommond = filterTitle(recommondResult||[]);
+                res.render('meitu_detail', listObj);
+                conn.release();
+            })
+            
+        });
+    });
+}
+
+// 星闻列表
+router.get('/xingwen', function(req, res) {
+    xingwenList(req, res, 'all', 1);
+});
+router.get('/xingwen/page/:page', function(req, res) {
+    xingwenList(req, res, 'all', req.params.page);
+});
+router.get('/xingwen/:type', function (req, res) {
+    xingwenList(req, res, req.params.type, 1);
+})
+router.get('/xingwen/:type/page/:page', function (req, res) {
+    xingwenList(req, res, req.params.type, req.params.page);
+})
+function xingwenList(req, res, type, page){
+    var limit = Number(page);
+    var limitBefore = ((limit - 1) * 20);
+    var filter = xingwenMenus.filter(function (item) {
+        return item.type === type;
+    })[0];
+    if (!filter || !limit) {
+        get404(req, res);
+        return;
+    } else {
+        var sql = 'SELECT * FROM xingwen_list where type = "' + type + '" order by id desc limit ' + (limitBefore + ',' + 20);
+        var count = 'SELECT COUNT(1) FROM xingwen_list where type = "' + type + '"';
+        if (filter.type == 'all') {
+            sql =  'SELECT * FROM xingwen_list order by id desc limit ' + (limitBefore + ',' + 20);
+            count = 'SELECT COUNT(1) FROM xingwen_list';
+        }
+        pool.getConnection(function (err, conn) {
+            if (err) console.log("POOL /==> " + err);
+            conn.query(sql, function (err, resultList) {
+                conn.query(count, function (errC, total) {
+                    var host = 'http://'+req.headers['host'];
+                    var listObj = {
+                        listData: resultList,
+                        childMenus: childMenus,
+                        type: 'xingwen/'+type,
+                        page: pageModule(Number(total[0]['COUNT(1)']) || 0, limit, host+'/xingwen'+(type== 'all'? '' : '/'+type)),
+                        pageTitle: filter.title + '_情趣综合平台' + (limit>1? '_第'+ limit +'页' : ''),
+                        pageKeyword: filter.keyword,
+                        pageDescrition: filter.desc,
+                        host: host,
+                        terminal: req.terminal
+                    }
+                    res.render('xingwen_list', listObj);
+                    conn.release();
+                });
+            });
+        });
+    }
+}
+
+// 星闻详情页
+router.get('/xingwen/:type/:id', function (req, res) {
+    getXingwenDetail(req, res, req.params.type, req.params.id, 1);
+})
+router.get('/xingwen/:type/:id/:page', function (req, res) {
+    getXingwenDetail(req, res, req.params.type, req.params.id, Number(req.params.page));
+})
+function getXingwenDetail(req, res, type, id, page){
+    var sql = 'SELECT * FROM xingwen_detail where id = "' + id +'"';
+    var filter = xingwenMenus.filter(function (item) {
         return item.type === type;
     })[0];
     if (type === 'tag') {
@@ -230,49 +364,48 @@ function getMeituDetail(req, res, type, id, page){
         pool.getConnection(function (err, conn) {
             if (err) console.log("POOL /==> " + err);
             conn.query(sql, function (err, resultList) {
-                var result = filterTitle(resultList||[]);
-                var obj = result[0] || {};
+                var obj = resultList[0] || {};
                 var host = 'http://'+req.headers['host'];
-                var imgs = [];
-                var lens = 0;
-                var pageCont = '';
-                var url = '';
-                if (obj.imgs) {
-                    imgs = obj.imgs.split(',');
-                    lens = imgs.length / 5;
-                    for(var i = 1; i <= lens; i++){
-                        url = host + '/meitu/' + type + '/' + id + '/' + i;
-                        if (i === 1)  url = host + '/meitu/' + type + '/' + id;
-                        pageCont += '<a class="'+ (i === page ? 'active' : '') +'" href="'+ url +'">'+ i +'</a>'
+                var txtList = '';
+                if (obj.txt) {
+                    var txtList = JSON.parse(obj.txt);
+                    var txtLen = Math.floor(Math.random()*txtList.length);
+                    for(var k = 0; k < txtList.length; k++) {
+                        var dou = txtList[k].split('，');
+                        var douLne = Math.floor(Math.random()*dou.length);
+                        var newDou = [];
+                        for(var b = 0; b < dou.length; b++) {
+                            if (b == douLne && b > 0) {
+                                newDou[b-1] = newDou[b-1]+dou[b];
+                            } else {
+                                newDou.push(dou[b]);
+                            }
+                        }
+                        txtList[k] = newDou.join('，');
                     }
+                    txtList.splice(txtLen, 0, '<a href="'+ host +'/xingwen/'+ (filter.type|| 'all') +'/">本章来源情趣综合平台-'+ filter.name +'</a>')
                 }
                 var listObj = {
-                    // headerHtml: getHeaderMenu('meitu', host),
                     childMenus: childMenus,
                     pageTitle: obj.title || '数据丢失',
-                    title: '_情趣综合平台',
                     position: filter,
-                    type: 'meitu/'+type,
-                    page: pageCont,
-                    imgs: imgs.slice(page*5-5, page*5),
-                    totalImgs: imgs,
+                    txt: txtList,//JSON.parse(obj.txt),
+                    type: 'xingwen/'+type,
                     host: host,
                     terminal: req.terminal
                 }
-                var reNum = Math.floor(Math.random()*(1 - 10000) + 10000);//10000
-                var recommondSql = 'SELECT t1.*,t2.type FROM meitu_list t1 inner join meitu_list_rela t2 on t1.id = t2.list_id order by t1.id desc limit ' + (reNum + ',' + 8);
+                var reNum = Math.floor(Math.random()*(1 - 1000) + 1000);//10000
+                var recommondSql = 'SELECT * FROM xingwen_list where type = "'+ (filter.type||'huodong')  +'" order by id desc limit ' + (reNum + ',' + 4);
                 conn.query(recommondSql, function (err, recommondResult) {
                     console.log(reNum, '====', '记得改随机数')
-                    listObj.recomond = filterTitle(recommondResult||[]);
-                    res.render('meitu_detail', listObj);
+                    listObj.recommond = recommondResult.filter(function (item) {return item.id !== id});
+                    res.render('xingwen_detail', listObj);
                     conn.release();
                 })
-                
             });
         });
     }
 }
-
 // 404页
 router.get('*', get404);
 function get404(req, res) {

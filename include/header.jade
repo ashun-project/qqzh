@@ -8,15 +8,26 @@
     div.menu.rf
         #mobile-menu
         ul
-            - var ary = [{name: '首页', url: '/', type: 'shouye'}, {name: '精品美图', url: '/meitu/nvshen/', type: 'meitu', child: true}];
+            - var ary = [{name: '首页', url: '/', type: 'shouye'}, {name: '星闻', url: '/xingwen/', type: 'xingwen', child: true}, {name: '精品美图', url: '/meitu/', type: 'meitu', child: true}];
             each item in ary
                 li(class="#{(type.indexOf(item.type) > -1? 'active' : '')}")
                     a(href="#{host+item.url}", title="#{item.name}", class="#{item.type}") #{item.name}
-                    -if (item.child)
-                        i
+                        -if (item.child)
+                            i
+                    -if (childMenus[item.type])
+                        .child-ul
+                            ul
+                                each li in childMenus[item.type]
+                                    li
+                                        -if (li.type !== 'all')
+                                            a(href="#{host+'/'+item.type+'/'+li.type}/") #{li.name}
 .menu-child
     each value, key in childMenus
-        div(class="#{key+'-child-menu' + (type.indexOf(key) > -1? ' active': '')}")
-            each item in value
-                a(href="#{host+'/'+ key +'/'+item.type}/", title="#{item.name}", class="#{(type.indexOf(item.type) > -1? 'active' : '')}") #{item.name}
+        -if (type.indexOf(key) > -1)
+            div(class="#{key+'-child-menu'}")
+                each item in value
+                    -if (item.type == 'all')
+                        a(href="#{host+'/'+ key}/", title="#{item.name}", class="#{(type.indexOf(item.type) > -1? 'active' : '')}") #{item.name}
+                    -else
+                        a(href="#{host+'/'+ key +'/'+item.type}/", title="#{item.name}", class="#{(type.indexOf(item.type) > -1? 'active' : '')}") #{item.name}
 .mask

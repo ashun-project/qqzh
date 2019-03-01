@@ -19,16 +19,19 @@ html
             div.rf
                 span 当前位置：
                 a(href="#{host}/") 首页&nbsp;&gt;&nbsp;
-                a(href="#{host}/meitu/") 精品美图&nbsp;&gt;
+                a(href="#{host}/xingwen/") 星闻&nbsp;&gt;&nbsp;
+                -if (position.type)
+                    a(href="#{host+'/meitu/'+position.type}/") #{position.name}&gt;&nbsp;
                 span 详情
-                
-        .imgs-list
-            -if(imgs.length)
-                div#imgs-list
-                    each item in imgs
-                        img(src="#{host+item.replace('https://mtl.ttsqgs.com','/meitustatic')}", alt="#{pageTitle}")
+        .xingwen-detail
+            -if(txt)
+                each item in txt
+                    -if (item.indexOf('<img') > -1 || item.indexOf('href=') > -1)
+                        p.img !{item}
+                    -else
+                        p #{item}
             -else
-                span.no-data 没有找到图片，请重新选择！
+                span.no-data 没有找到相关文章，请重新选择！
         .share
             .bdsharebuttonbox
                 a.bds_more(href='#', data-cmd='more')       
@@ -39,55 +42,24 @@ html
                 a.bds_weixin(href='#', data-cmd='weixin', title='分享到微信')
                 a.bds_sqq(href='#', data-cmd='sqq', title='分享到QQ好友')
                 a.bds_tieba(href='#', data-cmd='tieba', title='分享到百度贴吧')
-        .detail-page.meitu-page
-            -if(imgs.length)
-                span 共#{totalImgs.length}条
-                | !{page} 
-        .lsit-items
-            h5.recommond-tuijian 猜你喜欢
-            .data-list
+        .xingwen-list.xingwen
+            h5.recommond-tuijian 相关推荐
+            ul
                 each item in recommond
-                    a(href="#{host+ '/meitu/detail/'+item.id}", title="#{item.title}")
+                    li
                         .list-img
-                            img(src="#{host+item.img.replace('https://mtl.ttsqgs.com','/meitustatic')}", alt="#{item.title}")
-                        .list-profile
-                            p #{item.imglen}
-                            p #{item.jigou}
-                            p #{item.mutie}
-                        .list-title
-                            strong #{item.title}
-                -if(!recommond.length)
-                    span.no-data 没有找到数据，请重新选择！
-        .go-top#go-top(onclick="goTop()") &and;
+                            a(href="#{host+'/xingwen/'+item.type+'/'+item.id}", title="#{item.title}", target="_blank")
+                                img(src="#{item.img}", alt="#{item.title}")
+                        .list-cont
+                            a(href="#{host+'/xingwen/'+item.type+'/'+item.id}", title="#{item.title}", target="_blank")
+                                h3 #{item.title}
+                            p #{item.txt}
+                            i #{item.time}
+            -if(!recommond.length)
+                span.no-data 没有找到数据，请重新选择！
         script
             include ../include/header_menu.js
         include ../include/footer.jade
         script.
-            function goTop() {
-                var scrollToptimer = '';
-                scrollToptimer = setInterval(function () {
-                    var top = document.body.scrollTop || document.documentElement.scrollTop;
-                    var speed = top / 4;
-                    if (document.body.scrollTop!=0) {
-                        document.body.scrollTop -= speed;
-                    }else {
-                        document.documentElement.scrollTop -= speed;
-                    }
-                    if (top == 0) {
-                        clearInterval(scrollToptimer);
-                    }
-                }, 30);
-            }
-            window.onscroll= function(){
-                //变量t是滚动条滚动时，距离顶部的距离
-                var t = document.documentElement.scrollTop||document.body.scrollTop;
-                var scrollup = document.getElementById('go-top');
-                //当滚动到距离顶部200px时，返回顶部的锚点显示
-                if(t>=300){
-                    scrollup.style.display="block";
-                }else{          //恢复正常
-                    scrollup.style.display="none";
-                }
-            }
             window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":["mshare","qzone","tsina","tieba","sqq","weixin","bdysc","renren","tqq","bdxc","kaixin001","tqf","douban","tsohu","bdhome","thx","ibaidu","meilishuo","mogujie","diandian","huaban","duitang","hx","fx","youdao","sdo","qingbiji","people","xinhua","mail","isohu","yaolan","wealink","ty","iguba","fbook","twi","linkedin","copy","print"],"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin","sqq","tieba"],"viewText":"分享到：","viewSize":"24"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin","sqq","tieba"]}};
             with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];

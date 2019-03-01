@@ -22,15 +22,29 @@ html
         //-             each item in value
         //-                 a(href="#{host+'/'+ key +'/'+item.type}/", title="#{item.name}", class="#{(type.indexOf(item.type) > -1? 'active' : '')}") #{item.name}
         include ../include/header.jade
-        .banner
-            img(src="#{host}/img/bn.jpg", alt="妹子-banner")
-        .lsit-items
-            each item in listData
-                h2 #{item.name}
-                    a(href="#{host+ '/meitu/' +item.type}/", title="#{item.name}") 更多
+        .banner.idx
+            img(src="#{host}/img/inba.jpg", alt="情趣综合平台-banner")
+        .index-item
+            .xingwen-list
+                h2.series #{listData.xingwen.name}
+                    a.rf(href="#{host}/xingwen/", title="星闻") 更多
+                ul
+                    each item in listData.xingwen.list
+                        li
+                            .list-img
+                                a(href="#{host+'/xingwen/'+item.type+'/'+item.id}", title="#{item.title}", target="_blank")
+                                    img(src="#{item.img}", alt="#{item.title}")
+                            .list-cont
+                                a(href="#{host+'/xingwen/'+item.type+'/'+item.id}", title="#{item.title}", target="_blank")
+                                    h3 #{item.title}
+                                p #{item.txt}
+                                i #{item.time}
+            .meitu-list
+                h2.series #{listData.meitu.name}
+                    a.rf(href="#{host}/meitu/", title="精品美图") 更多
                 .data-list
-                    each vv in item.list
-                        a(href="#{host+'/meitu/'+ vv.type +'/'+vv.id}", title="#{vv.title}", target="_blank")
+                    each vv in listData.meitu.list
+                        a(href="#{host+'/meitu/detail/'+vv.id}", title="#{vv.title}", target="_blank")
                             .list-img
                                 img(src="#{host+vv.img.replace('https://mtl.ttsqgs.com','/meitustatic')}", alt="#{vv.title}")
                             .list-profile
@@ -64,6 +78,4 @@ html
             span 阿顺美图
         script
             include ../include/header_menu.js
-        .footer
-            span 本站所有图片和文章内容来源于网络，版权归原作者所有，如有侵权及违法，请联系qqzhpt@gmail.com，我们将立即予以删除！谢谢！
-        script(type="text/javascript", src="https://s5.cnzz.com/z_stat.php?id=1276301345&web_id=1276301345", async="async")
+        include ../include/footer.jade

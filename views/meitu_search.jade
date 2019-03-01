@@ -21,7 +21,7 @@ html
         .lsit-items
             .data-list
                 each item in listData
-                    a(href="#{host+ '/meitu/tag/'+item.id}", title="#{item.title}", target="_blank")
+                    a(href="#{host+ '/meitu/detail/'+item.id}", title="#{item.title}", target="_blank")
                         .list-img
                             img(src="#{host+item.img.replace('https://mtl.ttsqgs.com','/meitustatic')}", alt="#{item.title}")
                         .list-profile
@@ -35,6 +35,4 @@ html
         .meitu-page !{page} 
         script
             include ../include/header_menu.js
-        .footer
-            span 本站所有图片和文章内容来源于网络，版权归原作者所有，如有侵权及违法，请联系qqzhpt@gmail.com，我们将立即予以删除！谢谢！
-        script(type="text/javascript", src="https://s5.cnzz.com/z_stat.php?id=1276301345&web_id=1276301345", async="async")
+        include ../include/footer.jade
