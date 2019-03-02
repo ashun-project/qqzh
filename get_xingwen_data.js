@@ -2,20 +2,21 @@ var request = require("request");
 var cheerio = require('cheerio');
 const iconv = require('iconv-lite');
 var mysql = require('mysql');
+var fs = require('fs');
 var pageNum = 0;
 var dtNum = 0;
 var arr = [];
 var resour = 'http://www.mingxing.com';
 var items = [
-    // {url: '/news/index?type=hdxz&p=', type: 'huodong', num: 309},//309
-    // {url: '/news/index?type=fwbg&p=', type: 'feiwen', num: 360},//360
-    // {url: '/news/index?type=tupian&p=', type: 'tupian', num: 249},//249
-    // {url: '/news/index?type=baoliaotai&p=', type: 'baoliaotai', num: 91},//91
-    // {url: '/news/index?type=zyxw&p=', type: 'zongyi', num: 133},//133
-    {url: '/news/index?type=dsxw&p=', type: 'dianshi', num: 397},//397
-    {url: '/news/index?type=dyxw&p=', type: 'dianying', num: 108},//108
-    {url: '/news/index?type=yyxw&p=', type: 'yinyue', num: 222},//222
-    {url: '/news/index?type=mxdt&p=', type: 'dongtai', num: 727},//727
+    {url: '/news/index?type=hdxz&p=', type: 'huodong', num: 1},//309
+    {url: '/news/index?type=fwbg&p=', type: 'feiwen', num: 1},//360
+    {url: '/news/index?type=tupian&p=', type: 'tupian', num: 1},//249
+    {url: '/news/index?type=baoliaotai&p=', type: 'baoliaotai', num: 1},//91
+    {url: '/news/index?type=zyxw&p=', type: 'zongyi', num: 1},//133
+    {url: '/news/index?type=dsxw&p=', type: 'dianshi', num: 1},//397
+    {url: '/news/index?type=dyxw&p=', type: 'dianying', num: 1},//108
+    {url: '/news/index?type=yyxw&p=', type: 'yinyue', num: 1},//222
+    {url: '/news/index?type=mxdt&p=', type: 'dongtai', num: 1},//727
 ]
 var ip = [
     '14.192.76.22',
@@ -203,39 +204,33 @@ function listArr (list) {
 }
 
 getList();
-function deleteNot() {
-    var sql = 'SELECT list.* FROM list LEFT JOIN defDetail ON list.createTime = defDetail.createTime WHERE defDetail.createTime is null';
-    var delSql = 'DELETE list FROM list LEFT JOIN defDetail ON list.createTime = defDetail.createTime WHERE defDetail.createTime is null';
-    pool.getConnection(function (err, conn) {
-        if (err) console.log("POOL ==> " + err);
-        conn.query(sql, function (err, rows, fields) {
-            if (err) console.log('[chear ERROR] - ', err.message);
-            console.log(rows.length, '=======');
-            conn.release();
-            // getAjax('/user/login/dologin.html', 'POST').then(function () {
-            //     listArr(rows);
-            // });
-        })
-    });
-}
-var num = 0;
-function allData() {
-    var sql = 'select * from meitu_list';
-    var updateSql = 'update meitu_detail set id = "';
-    pool.getConnection(function (err, conn) {
-        if (err) console.log("POOL ==> " + err);
-        conn.query(sql, function (err, rows, fields) {
-            if (err) console.log('[chear ERROR] - ', err.message);
-            console.log(rows.length, '=======');
-            for(var i =0; i < rows.length; i++) {
-                conn.query(updateSql+rows[i].id+'" where url = "' + rows[i].url +'"', function (err, rows, fields) {
-                    if (err) console.log('[chear ERROR] - ', err.message);
-                    console.log(num++)
-                })
-            }
-            conn.release();
-        })
-    });
-}
-// allData()
-// getList();
+
+// 图片下载
+// function getImg(id, src) {
+//     var src = "http://img.mingxing.com/mingxing//20190214/1129fd339434b746df94a778341fc6d2.jpg";
+//     var writeStream = fs.createWriteStream(id+'.jpg');
+//     var options = {
+//         method: 'GET',
+//         url: src,
+//         gzip: true,
+//         encoding: null,
+//         headers: {
+//             "X-Forwarded-For": ip[Math.floor(Math.random()*ip.length)] || '42.194.64.18',
+//             'User-Agent': 'Mozilla/8.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36',
+//             'referer': 'http://www.mingxing.com',
+//             'Cookie': "PHPSESSID=88f1qocpntbtjnp990pkqvo3a4; UM_distinctid=16846df58e71c8-0735f5020bd16-10326653-13c680-16846df58e8f22; CNZZDATA1273706240=1075868105-1547372666-http%253A%252F%252Fmvxoxo.com%252F%7C1547431260; CNZZDATA1275906764=206766016-1547375436-http%253A%252F%252Fmvxoxo.com%252F%7C1547430243"
+//         }
+//     };
+//     var readStream = request(options);
+//     readStream.pipe(writeStream);
+//     readStream.on('end', function() {
+//         console.log('文件下载成功');
+//     });
+//     readStream.on('error', function() {
+//         console.log("错误信息:" + err);
+//     })
+//     writeStream.on("finish", function() {
+//         console.log("文件写入成功");
+//         writeStream.end();
+//     });
+// }

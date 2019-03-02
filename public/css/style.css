@@ -459,6 +459,7 @@ h2.series a:hover{
     display: block;
     width: 160px;
     height: 110px;
+    background: url('/img/grey.gif') no-repeat center;
 }
 .xingwen-list li .list-img img{
     width: 100%;

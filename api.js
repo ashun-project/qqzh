@@ -1,4 +1,5 @@
 var express = require('express');
+var request = require("request");
 var router = express.Router();
 var mysql = require('mysql');
 var pageModule = require('./page');
@@ -406,6 +407,33 @@ function getXingwenDetail(req, res, type, id, page){
         });
     }
 }
+router.get('/xingwenstatic/*', function (req, res) {
+    var src = "http://img.mingxing.com" + req.url.replace('/xingwenstatic', '');
+    var options = {
+        method: 'GET',
+        url: src,
+        gzip: true,
+        encoding: null,
+        // originalHostHeaderName: 'www.mingxing.com',
+        headers: {
+            "X-Forwarded-For": '42.194.64.18',
+            'User-Agent': 'Mozilla/8.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36',
+            'referer': 'http://www.mingxing.com',
+            'Cookie': "PHPSESSID=88f1qocpntbtjnp990pkqvo3a4; UM_distinctid=16846df58e71c8-0735f5020bd16-10326653-13c680-16846df58e8f22; CNZZDATA1273706240=1075868105-1547372666-http%253A%252F%252Fmvxoxo.com%252F%7C1547431260; CNZZDATA1275906764=206766016-1547375436-http%253A%252F%252Fmvxoxo.com%252F%7C1547430243"
+        }
+    };
+    let head = { 'Content-Type': 'image/jpeg' };
+    var rqRst = request(options);
+    res.writeHead(200, head);
+    rqRst.pipe(res);
+    // rqRst.on('end', function () {
+    //     // res.end();
+    // });
+    rqRst.on('error', function(err) {
+        console.log("错误信息:" + err);
+        res.end();
+    });
+})
 // 404页
 router.get('*', get404);
 function get404(req, res) {
