@@ -17,6 +17,8 @@ var items = [
     {url: '/news/index?type=dyxw&p=', type: 'dianying', num: 1},//108
     {url: '/news/index?type=yyxw&p=', type: 'yinyue', num: 1},//222
     {url: '/news/index?type=mxdt&p=', type: 'dongtai', num: 1},//727
+    {url: '/news/index?&p=', type: 'quan', num: 1},//727
+    
 ]
 var ip = [
     '14.192.76.22',

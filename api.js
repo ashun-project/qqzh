@@ -98,6 +98,9 @@ router.all('*', function (req, res, next) {
     } else {
         terminal = "pc";
     }
+    if (req.url.indexOf('xingwenstatic') == -1) {
+        // console.log(getClientIP(req), req.url, req.headers.referer);
+    }
     req.terminal = terminal;
     next();
 })
@@ -280,7 +283,7 @@ function getMeituDetail(req, res, id, page){
             var reNum = Math.floor(Math.random()*(1 - 10000) + 10000);//10000
             var recommondSql = 'SELECT t1.*,t2.type FROM meitu_list t1 inner join meitu_list_rela t2 on t1.id = t2.list_id order by t1.id desc limit ' + (reNum + ',' + 8);
             conn.query(recommondSql, function (err, recommondResult) {
-                console.log(reNum, '====', '记得改随机数', getClientIP(req));
+                // console.log(reNum, '====', '记得改随机数', getClientIP(req));
                 listObj.recommond = filterTitle(recommondResult||[]);
                 res.render('meitu_detail', listObj);
                 conn.release();
@@ -355,8 +358,8 @@ function getXingwenDetail(req, res, type, id, page){
     var filter = xingwenMenus.filter(function (item) {
         return item.type === type;
     })[0];
-    if (type === 'tag') {
-        filter = {name: '搜索详情页', type: ''}
+    if (type === 'quan') {
+        filter = {name: '标签', type: ''}
     }
     if (!filter || !page) {
         get404(req, res);
@@ -398,7 +401,7 @@ function getXingwenDetail(req, res, type, id, page){
                 var reNum = Math.floor(Math.random()*(1 - 1000) + 1000);//10000
                 var recommondSql = 'SELECT * FROM xingwen_list where type = "'+ (filter.type||'huodong')  +'" order by id desc limit ' + (reNum + ',' + 4);
                 conn.query(recommondSql, function (err, recommondResult) {
-                    console.log(reNum, '====', '记得改随机数')
+                    // console.log(reNum, '====', '记得改随机数', host)
                     listObj.recommond = recommondResult.filter(function (item) {return item.id !== id});
                     res.render('xingwen_detail', listObj);
                     conn.release();
@@ -408,6 +411,7 @@ function getXingwenDetail(req, res, type, id, page){
     }
 }
 router.get('/xingwenstatic/*', function (req, res) {
+    console.log(req.headers.referer, '===')
     var src = "http://img.mingxing.com" + req.url.replace('/xingwenstatic', '');
     var options = {
         method: 'GET',
