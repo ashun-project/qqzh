@@ -497,12 +497,16 @@ h2.series a:hover{
     width: 100%;
     margin: 30px auto 0;
     line-height: 25px;
+    padding: 0 5px;
 }
 .xingwen-detail p{
     margin: 5px 0;
 }
 .xingwen-detail p.img{
     text-align: center;
+}
+.xingwen-detail p.img img{
+    max-width: 100%;
 }
 .xingwen-detail p.img a{
     color: #333;
