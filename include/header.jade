@@ -3,7 +3,7 @@
         h6
             a(href="#{host}/") 情趣综合平台
     div.search.rf
-        input(id="search-value", onkeyup="getKeyup()", type="text")
+        input(id="search-value", placeholder="#{(type.indexOf('xingwen') > -1? '当前搜索星闻' : '当前搜索美图')}", onkeyup="getKeyup()", type="text")
         button(onclick="goSearch()") 搜索
     div.menu.rf
         #mobile-menu

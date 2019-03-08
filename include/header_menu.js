@@ -4,6 +4,7 @@ var menu = document.querySelector('.header .menu');
 var mobileMenu = document.getElementById('mobile-menu');
 var mask = document.querySelector('.mask');
 var menuChild = document.querySelector('.menu-child');
+var currentUrl = window.location.href;
 if (bodyW > 600) {
     // menuLiEvent();
 }
@@ -43,8 +44,12 @@ function hideMenu(showUl, showMask, showMenuChild) {
 }
 function goSearch () {
     var searchValue = document.getElementById("search-value").value;
+    var type = '/meitu/search/';
+    if (currentUrl.indexOf('xingwen') > -1) {
+        type = '/xingwen/search/';
+    }
     if(searchValue){
-        window.location.href="/meitu/search/"+searchValue.replace(/_/g,"&&")+"/";
+        window.location.href=type+searchValue.replace(/_/g,"&&")+"/";
     };
 };
 function getKeyup (e) {

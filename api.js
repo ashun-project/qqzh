@@ -99,7 +99,7 @@ router.all('*', function (req, res, next) {
         terminal = "pc";
     }
     if (req.url.indexOf('xingwenstatic') == -1) {
-        // console.log(getClientIP(req), req.url, req.headers.referer);
+        console.log(getClientIP(req), '====');
     }
     req.terminal = terminal;
     next();
@@ -348,7 +348,11 @@ function xingwenList(req, res, type, page){
 
 // 星闻详情页
 router.get('/xingwen/:type/:id', function (req, res) {
-    getXingwenDetail(req, res, req.params.type, req.params.id, 1);
+    if (req.params.type === 'search') {
+        getXingwenSearch(req, res, req.params.id, '1');
+    } else {
+        getXingwenDetail(req, res, req.params.type, req.params.id, 1);
+    }
 })
 router.get('/xingwen/:type/:id/:page', function (req, res) {
     getXingwenDetail(req, res, req.params.type, req.params.id, Number(req.params.page));
@@ -410,8 +414,47 @@ function getXingwenDetail(req, res, type, id, page){
         });
     }
 }
+
+//  星闻搜索页
+router.get('/xingwen/search/:value/page/:page', function (req, res) {
+    getXingwenSearch(req, res, req.params.value, req.params.page);
+})
+function getXingwenSearch (req, res, searchCont, page) {
+    var limit = Number(page) || 1;
+    var limitBefore = ((limit - 1) * 20);
+    var value = searchCont.replace(/&&/g, '_');
+    var sql = 'SELECT * FROM xingwen_list where title like "' +'%'+ value +'%'+ '" order by id desc limit ' + (limitBefore + ',' + 20);
+    var count = 'SELECT COUNT(1) FROM xingwen_list where title like "' +'%'+ value +'%'+ '"';
+    pool.getConnection(function (err, conn) {
+        if (err) console.log("POOL /==> " + err);
+        conn.query(sql, function (err, resultList) {
+            conn.query(count, function (errC, total) {
+                var resultTotal = Number(total[0]['COUNT(1)']) || 0;
+                var host = 'http://'+req.headers['host'];
+                var result = filterTitle(resultList||[]);
+                var listObj = {
+                    listData: result,
+                    // headerHtml: getHeaderMenu('meitu', host),
+                    childMenus: childMenus,
+                    type: 'xingwen/tag',
+                    searchCont: value,
+                    searchTotal: resultTotal,
+                    page: resultTotal ? pageModule(resultTotal, limit, host+'/xingwen/search/'+searchCont) : '',
+                    pageTitle: value+'_星闻搜索_情趣综合平台'+(limit>1? '_第'+ limit +'页' : ''),
+                    pageKeyword: '星闻搜索,最新星闻,明星活动,明星趣事,美女明星,明星绯闻,qqzh8,qqzh8.com',
+                    pageDescrition: '情趣综合平台星闻搜索全网超高清的美女写真网站,分享各类明星活动、明星趣事、明星绯闻、最新星闻等资讯！',
+                    host: host,
+                    terminal: req.terminal
+                }
+                res.render('xingwen_search', listObj);
+                conn.release();
+            });
+        });
+    });
+}
+
 router.get('/xingwenstatic/*', function (req, res) {
-    console.log(req.headers.referer, '===')
+    // console.log(req.headers.referer, '===')
     var src = "http://img.mingxing.com" + req.url.replace('/xingwenstatic', '');
     var options = {
         method: 'GET',
