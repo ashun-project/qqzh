@@ -98,11 +98,21 @@ router.all('*', function (req, res, next) {
     } else {
         terminal = "pc";
     }
-    if (req.url.indexOf('xingwenstatic') == -1) {
-        console.log(getClientIP(req), '====');
-    }
     req.terminal = terminal;
-    next();
+    if (req.url.indexOf('xingwenstatic') == -1 && req.url.indexOf('meitustatic') == -1) {
+        console.log(getClientIP(req), req.url, '====');
+    }
+    
+    if (req.hostname !== 'www.qqzhpt.com') {
+        if (req.hostname == 'img.qqzhpt.com' && (req.url.indexOf('xingwenstatic') > -1 || req.url.indexOf('meitustatic') > -1)) {
+            next();
+        } else {
+            return res.redirect(301, 'http://www.qqzhpt.com'+req.url);
+        }
+    } else {
+        next();
+    }
+    // next();
 })
 // 首页
 router.get('/', function (req, res) {
@@ -453,9 +463,15 @@ function getXingwenSearch (req, res, searchCont, page) {
     });
 }
 
+// 获取静态图片
+router.get('/meitustatic/*', function (req, res) {
+    getStaticImg (req, res, 'https://mtl.ttsqgs.com', 'https://www.meitulu.com/')
+});
 router.get('/xingwenstatic/*', function (req, res) {
-    // console.log(req.headers.referer, '===')
-    var src = "http://img.mingxing.com" + req.url.replace('/xingwenstatic', '');
+    getStaticImg (req, res, 'http://img.mingxing.com', 'http://www.mingxing.com')
+});
+function getStaticImg (req, res, urlHost, referer) {
+    var src = urlHost + req.url.replace(/\/xingwenstatic|\/meitustatic/, '');
     var options = {
         method: 'GET',
         url: src,
@@ -465,7 +481,7 @@ router.get('/xingwenstatic/*', function (req, res) {
         headers: {
             "X-Forwarded-For": '42.194.64.18',
             'User-Agent': 'Mozilla/8.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36',
-            'referer': 'http://www.mingxing.com',
+            'referer': referer,
             'Cookie': "PHPSESSID=88f1qocpntbtjnp990pkqvo3a4; UM_distinctid=16846df58e71c8-0735f5020bd16-10326653-13c680-16846df58e8f22; CNZZDATA1273706240=1075868105-1547372666-http%253A%252F%252Fmvxoxo.com%252F%7C1547431260; CNZZDATA1275906764=206766016-1547375436-http%253A%252F%252Fmvxoxo.com%252F%7C1547430243"
         }
     };
@@ -480,7 +496,7 @@ router.get('/xingwenstatic/*', function (req, res) {
         console.log("错误信息:" + err);
         res.end();
     });
-})
+}
 // 404页
 router.get('*', get404);
 function get404(req, res) {

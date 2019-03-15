@@ -501,6 +501,8 @@ h2.series a:hover{
 }
 .xingwen-detail p{
     margin: 5px 0;
+    width: 100%;
+    word-wrap: break-word;
 }
 .xingwen-detail p.img{
     text-align: center;
