@@ -106,6 +106,7 @@ body{
 }
 .header .search {
     margin-top: 10px;
+    display: flex;
 }
 .header .search input, .header .search button{
     border: 0;
