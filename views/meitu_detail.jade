@@ -26,7 +26,7 @@ html
             -if(imgs.length)
                 div#imgs-list
                     each item in imgs
-                        img(src="#{item.replace('https://mtl.ttsqgs.com','http://img.qqzhpt.com/meitustatic')}", alt="#{pageTitle}")
+                        img(src="#{item.replace(/https\:\/\/mtl\.ttsqgs\.com|https\:\/\/mtl\.xtpxw\.com/,'http://img.qqzhpt.com/meitustatic')}", alt="#{pageTitle}")
             -else
                 span.no-data 没有找到图片，请重新选择！
         .share

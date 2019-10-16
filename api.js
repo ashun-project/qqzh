@@ -99,6 +99,10 @@ router.all('*', function (req, res, next) {
         terminal = "pc";
     }
     req.terminal = terminal;
+    
+    if (req.url.indexOf('.php') > -1) {
+        return get404(req, res)
+    }
     if (req.url.indexOf('xingwenstatic') == -1 && req.url.indexOf('meitustatic') == -1) {
         console.log(getClientIP(req), req.url, '====');
     }

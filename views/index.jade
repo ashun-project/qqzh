@@ -1,4 +1,4 @@
-doctype html 5
+﻿doctype html 5
 html
     head
         meta(http-equiv="Content-Type", content="text/html; charset=UTF-8")
@@ -47,7 +47,7 @@ html
                     each vv in listData.meitu.list
                         a(href="#{host+'/meitu/detail/'+vv.id}", title="#{vv.title}", target="_blank")
                             .list-img
-                                img(src="#{vv.img.replace('https://mtl.ttsqgs.com','http://img.qqzhpt.com/meitustatic')}", alt="#{vv.title}")
+                                img(src="#{vv.img.replace(/https\:\/\/mtl\.ttsqgs\.com|https\:\/\/mtl\.xtpxw\.com/,'http://img.qqzhpt.com/meitustatic')}", alt="#{vv.title}")
                             .list-profile
                                 p #{vv.imglen}
                                 p #{vv.jigou}
@@ -56,10 +56,22 @@ html
                                 strong #{vv.title}
         .friendly
             h3 友情链接
-            <a href='http://www.jioonn.com' target='_blank'>成人用品</a>
-            span 美女图片                   
-            span 爆乳美女
-            span 极品美女
+            a(href="http://www.baidu.com", target="_blank") 
+                span 百度一下
+            a(href="http://www.360tvbuy.com/", target="_blank") 
+                span LV包包
+            a(href="http://www.jioonn.com", target="_blank")
+                span 成人用品
+            a(href="http://www.371yc.cn/", target="_blank")
+                span 371影视资讯                   
+            a(href="http://www.fjbdk.com/", target="_blank")
+                span 靖江新闻网
+            a(href="http://www.baidu.com/", target="_blank")
+                span 百度一下
+            a(href="http://8000qm.vip", target="_blank")
+                span 千妹
+            a(href="http://kelti.zx58.cn", target="_blank")
+                span 克缇
             span 韩国风俗娘
             span 性感少妇
             span 性感尤物
