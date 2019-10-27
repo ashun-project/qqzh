@@ -23,7 +23,7 @@ html
                 each item in listData
                     a(href="#{host+'/meitu/detail/'+item.id}", title="#{item.title}", target="_blank")
                         .list-img
-                            img(src="#{item.img.replace(/https\:\/\/mtl\.ttsqgs\.com|https\:\/\/mtl\.xtpxw\.com/,'http://img.qqzhpt.com/meitustatic')}", alt="#{item.title}")
+                            img(src="#{item.img.replace(/https\:\/\/mtl\.ttsqgs\.com|https\:\/\/mtl\.xtpxw\.com/,'http://img.qqzhpt.com/meitustatic') + '?' + new Date().getTime()}", alt="#{item.title}")
                         .list-profile
                             p #{item.imglen}
                             p #{item.jigou}

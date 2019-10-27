@@ -26,19 +26,19 @@ html
             -if(imgs.length)
                 div#imgs-list
                     each item in imgs
-                        img(src="#{item.replace(/https\:\/\/mtl\.ttsqgs\.com|https\:\/\/mtl\.xtpxw\.com/,'http://img.qqzhpt.com/meitustatic')}", alt="#{pageTitle}")
+                        img(src="#{item.replace(/https\:\/\/mtl\.ttsqgs\.com|https\:\/\/mtl\.xtpxw\.com/,'http://img.qqzhpt.com/meitustatic') + '?' + new Date().getTime()}", alt="#{pageTitle}")
             -else
                 span.no-data 没有找到图片，请重新选择！
-        .share
-            .bdsharebuttonbox
-                a.bds_more(href='#', data-cmd='more')       
-                a.bds_qzone(href='#', data-cmd='qzone', title='分享到QQ空间')
-                a.bds_tsina(href='#', data-cmd='tsina', title='分享到新浪微博')
-                a.bds_tqq(href='#', data-cmd='tqq', title='分享到腾讯微博')
-                a.bds_renren(href='#', data-cmd='renren', title='分享到人人网')
-                a.bds_weixin(href='#', data-cmd='weixin', title='分享到微信')
-                a.bds_sqq(href='#', data-cmd='sqq', title='分享到QQ好友')
-                a.bds_tieba(href='#', data-cmd='tieba', title='分享到百度贴吧')
+        //- .share
+        //-     .bdsharebuttonbox
+        //-         a.bds_more(href='#', data-cmd='more')       
+        //-         a.bds_qzone(href='#', data-cmd='qzone', title='分享到QQ空间')
+        //-         a.bds_tsina(href='#', data-cmd='tsina', title='分享到新浪微博')
+        //-         a.bds_tqq(href='#', data-cmd='tqq', title='分享到腾讯微博')
+        //-         a.bds_renren(href='#', data-cmd='renren', title='分享到人人网')
+        //-         a.bds_weixin(href='#', data-cmd='weixin', title='分享到微信')
+        //-         a.bds_sqq(href='#', data-cmd='sqq', title='分享到QQ好友')
+        //-         a.bds_tieba(href='#', data-cmd='tieba', title='分享到百度贴吧')
         .detail-page.meitu-page
             -if(imgs.length)
                 span 共#{totalImgs.length}条
@@ -49,7 +49,7 @@ html
                 each item in recommond
                     a(href="#{host+ '/meitu/detail/'+item.id}", title="#{item.title}")
                         .list-img
-                            img(src="#{item.img.replace('https://mtl.ttsqgs.com','http://img.qqzhpt.com/meitustatic')}", alt="#{item.title}")
+                            img(src="#{item.img.replace('https://mtl.ttsqgs.com','http://img.qqzhpt.com/meitustatic') + '?' + new Date().getTime()}", alt="#{item.title}")
                         .list-profile
                             p #{item.imglen}
                             p #{item.jigou}
@@ -89,5 +89,5 @@ html
                     scrollup.style.display="none";
                 }
             }
-            window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":["mshare","qzone","tsina","tieba","sqq","weixin","bdysc","renren","tqq","bdxc","kaixin001","tqf","douban","tsohu","bdhome","thx","ibaidu","meilishuo","mogujie","diandian","huaban","duitang","hx","fx","youdao","sdo","qingbiji","people","xinhua","mail","isohu","yaolan","wealink","ty","iguba","fbook","twi","linkedin","copy","print"],"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin","sqq","tieba"],"viewText":"分享到：","viewSize":"24"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin","sqq","tieba"]}};
-            with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+            //- window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":["mshare","qzone","tsina","tieba","sqq","weixin","bdysc","renren","tqq","bdxc","kaixin001","tqf","douban","tsohu","bdhome","thx","ibaidu","meilishuo","mogujie","diandian","huaban","duitang","hx","fx","youdao","sdo","qingbiji","people","xinhua","mail","isohu","yaolan","wealink","ty","iguba","fbook","twi","linkedin","copy","print"],"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin","sqq","tieba"],"viewText":"分享到：","viewSize":"24"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin","sqq","tieba"]}};
+            //- with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];

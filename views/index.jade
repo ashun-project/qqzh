@@ -47,7 +47,7 @@ html
                     each vv in listData.meitu.list
                         a(href="#{host+'/meitu/detail/'+vv.id}", title="#{vv.title}", target="_blank")
                             .list-img
-                                img(src="#{vv.img.replace(/https\:\/\/mtl\.ttsqgs\.com|https\:\/\/mtl\.xtpxw\.com/,'http://img.qqzhpt.com/meitustatic')}", alt="#{vv.title}")
+                                img(src="#{vv.img.replace(/https\:\/\/mtl\.ttsqgs\.com|https\:\/\/mtl\.xtpxw\.com/,'http://img.qqzhpt.com/meitustatic') + '?' + new Date().getTime()}", alt="#{vv.title}")
                             .list-profile
                                 p #{vv.imglen}
                                 p #{vv.jigou}
@@ -72,6 +72,8 @@ html
                 span 千妹
             a(href="http://kelti.zx58.cn", target="_blank")
                 span 克缇
+            a(href="http://takedoc.cc", target="_blank")
+                span 网红嫩模套图视频
             span 韩国风俗娘
             span 性感少妇
             span 性感尤物
